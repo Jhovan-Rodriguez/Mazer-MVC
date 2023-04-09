@@ -17,21 +17,26 @@
             
             session_start();
             
-            if(isset($_POST['btnlogin'])):
+            if(isset($_POST['btnlogin'])){
                 $nombre = $_POST['nombre'];
-                $password = md5($_POST['password']);
+                $password = $_POST['password'];
                 $data = "user_name='".$nombre."' AND user_password='".$password."'";
                 $u=$model->login("users",$data);
-                if($u):
-                    foreach($u as $value):
+                if($u){
+                    foreach($u as $value){
                         $_SESSION['nombre'] = $value[0]['user_name'];
-                        $_SESION['login_id'] = $value[0]['id'];
-                    endforeach;    
-                endif;
+                        $_SESSION['login_id'] = $value[0]['id'];
+                        $info_tienda = $model->encontrar_tienda($value[0]['id_tienda']);
+                    }
+                    foreach($info_tienda as $data=>$datos){
+                        $_SESSION['nombre_tienda']= $datos[0]['nombre'];
+
+                    }
+                }
                 header("location:".urlsite);
-            else:
+            }else{
                 echo "Sin sesion";
-            endif;
+            }
             
         }
 
@@ -45,8 +50,7 @@
 
         static function tiendas(){
             $tiendas   = new Model();
-            $dato       = $tiendas->mostrar("tienda","1");
-            echo "Tienda";
+            $dato       = $tiendas->mostrar_tiendas();
             require_once("views/tiendas.php");
         }
 

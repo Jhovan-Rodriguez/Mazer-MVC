@@ -1,3 +1,8 @@
+<?php 
+include("../model/index.php");
+$modelo=new Model();
+$id_usuario = $_SESSION['login_id'];
+?>
 <div id="sidebar">
       <div class="sidebar-wrapper active">
         <div class="sidebar-header position-relative">
@@ -38,32 +43,83 @@
           </div>
         </div>
         <div class="sidebar-menu">
+          <?php
+          $user_info = $modelo->encontrar_usuario($id_usuario);
+          ?>
           <ul class="menu">
-            <li class="sidebar-title">Menu</li>
-
-            <li class="sidebar-item active">
+            <li class="sidebar-title">Usuario</li>
+            <li class="sidebar-item">
+              <?php foreach($user_info as $data => $datos){  $id_tienda=$datos['id_tienda'];?>
               <a href="index.php" class="sidebar-link">
-                <i class="bi bi-grid-fill"></i>
-                <span>Dashboard</span>
+                <i class="bi bi-person"></i>
+                <span>Username:</span>
+                <span><?php echo $datos['user_name']; ?></span>
+              </a>
+              <?php } ?>
+            </li>
+            <li class="sidebar-item">
+              <a href="index.php" class="sidebar-link">
+                <i class="bi bi-bag"></i>
+                <span>Tienda:</span>
+                <span><?php echo $_SESSION['nombre_tienda']; ?></span>
               </a>
             </li>
-
+          </ul>
+        </div>
+        <div class="sidebar-menu">
+          <ul class="menu">
+            <li class="sidebar-title">Menu</li>
+            <?php if($id_tienda == 1){ ?>
             <li class="sidebar-item active">
               <a data-options='[["m","tiendas"]]' href="index.php" class="sidebar-link" data-function>
                 <i class="bi bi-grid-fill"></i>
-                <span>Ver Tiendas</span>
+                <span>Tiendas</span>
               </a>
             </li>
-            
+            <?php }else{ ?>
+            <li class="sidebar-item active">
+              <a href="index.php" class="sidebar-link">
+                <i class="bi bi-speedometer"></i>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li class="sidebar-item active">
+              <a href="index.php" class="sidebar-link">
+                <i class="bi bi-cart-dash-fill"></i>
+                <span>Inventario</span>
+              </a>
+            </li>
+            <li class="sidebar-item active">
+              <a href="index.php" class="sidebar-link">
+                <i class="bi bi-people-fill"></i>
+                <span>Usuarios</span>
+              </a>
+            </li>
+            <li class="sidebar-item active">
+              <a href="index.php" class="sidebar-link">
+                <i class="bi bi-bookmarks-fill"></i>
+                <span>Categorias</span>
+              </a>
+            </li>
+            <li class="sidebar-item active">
+              <a href="index.php" class="sidebar-link">
+                <i class="bi bi-cash-coin"></i>
+                <span>Venta</span>
+              </a>
+            </li>
+            <li class="sidebar-item active">
+              <a href="index.php" class="sidebar-link">
+                <i class="bi bi-journal-bookmark-fill"></i>
+                <span>Historial de ventas</span>
+              </a>
+            </li>
+             <?php } ?> 
             <li class="sidebar-item active">
               <a data-options='[["m","logout"]]' href="index.php" class="sidebar-link" data-function>
-                <i class="bi bi-grid-fill"></i>
+                <i class="bi bi-box-arrow-left"></i>
                 <span>Logout</span>
               </a>
             </li>
-
-            
-
           </ul>
         </div>
       </div>

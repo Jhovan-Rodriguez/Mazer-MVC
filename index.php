@@ -3,30 +3,36 @@
     require_once("config.php");
     require_once("controller/index.php");
     require_once("layouts/header.php");
-    if(isset($_SESSION['nombre'])):
-        if(isset($_POST['m'])):
+    if(isset($_SESSION['nombre'])){
+        if(isset($_POST['m'])){
             $metodo =   $_POST['m'];
-            if(method_exists("modeloController",$metodo)):  
+            if(method_exists("modeloController",$metodo)){
                 modeloController::{$metodo}();
-            else:
+            }else{
                 require_once("views/index.php");    
-            endif;
-        else:
-            require_once("views/index.php");
-        endif;
+            }
+        }else{
+            #Condicion donde si la tienda es root, cambie de dashboard a las tiendas 
+            if($_SESSION['nombre_tienda']=='root'){
+                modeloController::tiendas();
+            }else{
+            #Si no es root, se va al dashboard de prederminado de las tiendas
+                require_once("views/index.php");
+            }
+        }
         ?>
         
     <?php
-    else:
+    }else{
         
-        if(isset($_POST['m'])):
+        if(isset($_POST['m'])){
             $metodo =   $_POST['m'];
-            if(method_exists("modeloController",$metodo)):  
+            if(method_exists("modeloController",$metodo)){
                 modeloController::{$metodo}();
-            endif;
-        else:
+            }
+        }else{
             modeloController::view_login();
-        endif;
-    endif;
+        }
+    }
     require_once("layouts/bottom.php");
 ?>
