@@ -19,7 +19,7 @@
             }
             return $this->datos;
         }
-
+        //Función para mostrar los datos de tabla x
         public function mostrar($tabla,$condicion){
             $consul="select * from ".$tabla.";";
             $resu=$this->db->query($consul);
@@ -28,7 +28,7 @@
             }
             return $this->datos;
         }
-
+        //Consulta a la tabla tiendas, donde se muestren todas menos la root
         public function mostrar_tiendas(){
             $nombre_tienda = "root";
             $consul="select * from tienda where nombre <> '" . $nombre_tienda . "'";
@@ -38,7 +38,8 @@
             }
             return $this->datos;
         }
-
+        
+        //Función para encontrar tiendas dentro de la aplicación
         public function encontrar_tienda($id_tienda){
             $consul="select * from tienda where id=".$id_tienda.";";
             $resu=$this->db->query($consul);
@@ -48,6 +49,7 @@
             return $this->datos;
         }
 
+        //Función para encontrar el usuario dentro de la aplicación
         public function encontrar_usuario($id)
         {
             $sql = "SELECT * from users where id=".$id.";";
