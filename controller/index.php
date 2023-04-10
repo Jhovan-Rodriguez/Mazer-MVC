@@ -3,15 +3,15 @@
     require_once("config.php");
     class modeloController{
         private $model;
-
+        //Constructor del modelo
         public function __construct(){
             $this->model = new Model();
         }
-
+        //Funcion a la vista login
         static function view_login(){
             require_once("views/login.php");
         }
-
+        //Función para el logueo de usuarios e identificación de variables de sesión
         static function login(){
             $model = new Model();
             
@@ -39,7 +39,7 @@
             }
             
         }
-
+        //Función para el log out del usuario
         static function logout(){
             session_start();
             unset($_SESSION['nombre']);
@@ -47,7 +47,7 @@
             session_destroy();
             header("location:".urlsite);
         }
-
+        //Función para la vista tiendas y el muestreo de datos
         static function tiendas(){
             $tiendas   = new Model();
             $dato       = $tiendas->mostrar_tiendas();
