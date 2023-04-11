@@ -96,7 +96,7 @@ $id_usuario = $_SESSION['login_id'];
               </a>
             </li>
             <li class="sidebar-item active">
-              <a href="index.php" class="sidebar-link">
+              <a href="index.php" class="sidebar-link" data-function data-options='[["m","categoria"]]'>
                 <i class="bi bi-bookmarks-fill"></i>
                 <span>Categorias</span>
               </a>

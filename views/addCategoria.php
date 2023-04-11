@@ -8,7 +8,7 @@
           <div class="page-title">
             <div class="row">
               <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Registrar Tienda</h3>
+                <h3>Registrar Categoria</h3>
                 <p class="text-subtitle text-muted">
                   Ingrese los datos que se solicitan a continuacion.
                 </p>
@@ -22,7 +22,7 @@
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title">Nueva Tienda</h4>
+                    <h4 class="card-title">Nueva Categoria</h4>
                   </div>
                   <div class="card-content">
                     <div class="card-body">
@@ -37,51 +37,27 @@
                                 type="text"
                                 id="first-name-column"
                                 class="form-control"
-                                placeholder="Nombre de la tienda"
+                                placeholder="Nombre de la categoria"
                                 name="name"
                                 data-parsley-required="true"
                               />
                             </div>
                           </div>
-                          
                         </div>
                         <div class="row">
-                          <div class="col-12">
+                          <div class="col-md-6 col-12">
                             <div class="form-group mandatory">
-                              <fieldset>
-                                <label class="form-label">
-                                  Activa:
-                                </label>
-                                <div class="form-check">
-                                  <input
-                                    class="form-check-input"
-                                    type="radio"
-                                    name="flexRadioDefault"
-                                    id="flexRadioDefault1"
-                                    data-parsley-required="true"
-                                  />
-                                  <label
-                                    class="form-check-label form-label"
-                                    for="flexRadioDefault1"
-                                  >
-                                    Activada
-                                  </label>
-                                </div>
-                                <div class="form-check">
-                                  <input
-                                    class="form-check-input"
-                                    type="radio"
-                                    name="flexRadioDefault"
-                                    id="flexRadioDefault2"
-                                  />
-                                  <label
-                                    class="form-check-label form-label"
-                                    for="flexRadioDefault2"
-                                  >
-                                    Desactivado
-                                  </label>
-                                </div>
-                              </fieldset>
+                              <label for="first-name-column" class="form-label"
+                                >Descripcion</label
+                              >
+                              <input
+                                type="text"
+                                id="first-name-column"
+                                class="form-control"
+                                placeholder="Descripcion de la categoria"
+                                name="descripcion"
+                                data-parsley-required="true"
+                              />
                             </div>
                           </div>
                         </div>
@@ -93,7 +69,7 @@
                             >
                               Añadir
                             </button>
-                            <input type="hidden" name="m" value="addTienda">
+                            <input type="hidden" name="m" value="addCategoria">
                           </div>
                         </div>
                       </form>
