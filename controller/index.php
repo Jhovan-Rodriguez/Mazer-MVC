@@ -11,6 +11,15 @@
         static function view_login(){
             require_once("views/login.php");
         }
+
+        static function viewAddTienda(){
+            require_once("views/addTienda.php");
+        }
+
+        static function viewEditTienda(){
+            require_once("views/editarTienda.php");
+        }
+
         //Función para el logueo de usuarios e identificación de variables de sesión
         static function login(){
             $model = new Model();
@@ -19,7 +28,7 @@
             
             if(isset($_POST['btnlogin'])){
                 $nombre = $_POST['nombre'];
-                $password = $_POST['password'];
+                $password = md5($_POST['password']);
                 $data = "user_name='".$nombre."' AND user_password='".$password."'";
                 $u=$model->login("users",$data);
                 if($u){

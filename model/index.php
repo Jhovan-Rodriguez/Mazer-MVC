@@ -7,7 +7,7 @@
         public function __construct(){
             $this->Modelo  = array();
             $this->datos = array();
-            $this->db = new PDO('mysql:host=localhost;dbname=tienda',"root","NoZo161018K");
+            $this->db = new PDO('mysql:host=localhost;dbname=db_tienda',"root","root");
         }
 
         //BUSCAR LOG IN

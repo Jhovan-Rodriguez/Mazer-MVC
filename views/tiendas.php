@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-md-2">
                     <a href="#" data-function>
-                        <span data-options='[["m","addTienda"]]' class="badge bg-success">Agregar Nueva Tienda</span>
+                        <span data-options='[["m","viewAddTienda"]]' class="badge bg-success">Agregar Nueva Tienda</span>
                     </a>
                 </div>
             </div>
@@ -58,9 +58,9 @@
                                                             <i class="bi bi-three-dots-vertical"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="#" data-options='[["m","editTienda"],["id","<?php echo $v['id'] ?>"]]'><i class="bi bi-pencil-square text-warning m-1"></i>Editar</a>
-                                                            <a class="dropdown-item" href="#" data-options='[["m","delTienda"],["id","<?php echo $v['id'] ?>"]]'><i class="bi bi-trash3-fill text-danger m-1"></i>Eliminar</a>
-                                                            <a class="dropdown-item" href="#" data-options='[["m","InTienda"],["id","<?php echo $v['id'] ?>"]]'><i class="bi bi-box-arrow-in-up-right text-success m-1"></i>Ingresar</a>
+                                                            <a class="dropdown-item" href="#" data-function data-options='[["m","viewEditTienda"],["id","<?php echo $v['id'] ?>"]]'><i class="bi bi-pencil-square text-warning m-1"></i>Editar</a>
+                                                            <a class="dropdown-item" href="#" data-function data-options='[["m","delTienda"],["id","<?php echo $v['id'] ?>"]]'><i class="bi bi-trash3-fill text-danger m-1"></i>Eliminar</a>
+                                                            <a class="dropdown-item" href="#" data-function data-options='[["m","InTienda"],["id","<?php echo $v['id'] ?>"]]'><i class="bi bi-box-arrow-in-up-right text-success m-1"></i>Ingresar</a>
                                                         </div>
                                                     </div>
                                                 </th>
