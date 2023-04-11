@@ -69,7 +69,7 @@ $id_usuario = $_SESSION['login_id'];
         <div class="sidebar-menu">
           <ul class="menu">
             <li class="sidebar-title">Menu</li>
-            <?php if($id_tienda == 1){ ?>
+            <?php if($id_tienda == 1 and $_SESSION['nombre_tienda']=='root'){ ?>
             <li class="sidebar-item active">
               <a data-options='[["m","tiendas"]]' href="index.php" class="sidebar-link" data-function>
                 <i class="bi bi-grid-fill"></i>
