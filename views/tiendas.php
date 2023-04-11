@@ -1,4 +1,10 @@
 <title>Tiendas</title>
+<link rel="stylesheet" href="assets/extensions/sweetalert2/sweetalert2.min.css" />
+<?php
+include("../model/index.php");
+$modelo = new Model;
+$dato=$modelo->mostrar_tiendas();
+?>
 <div id="app">
     <?php
     require_once("layouts/aside.php");
@@ -93,3 +99,5 @@
 <script src="assets/extensions/jquery/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
 <script src="assets/static/js/pages/datatables.js"></script>
+<script src="assets/extensions/sweetalert2/sweetalert2.min.js"></script>
+<script src="assets/static/js/pages/sweetalert2.js"></script>

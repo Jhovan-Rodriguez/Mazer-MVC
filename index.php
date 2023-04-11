@@ -6,7 +6,6 @@
     // Insertando el header para todas las paginas
     require_once("layouts/header.php");
     // Verifica si existe una sesion
-    var_dump($_SESSION['nombre_tienda']);
     if(isset($_SESSION['nombre'])){
         // Verifica si se paso un parametro m por medio de post
         if(isset($_POST['m'])){
