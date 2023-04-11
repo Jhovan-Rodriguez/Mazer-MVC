@@ -22,6 +22,7 @@
 
         //Función para el logueo de usuarios e identificación de variables de sesión
         static function login(){
+            
             $model = new Model();
             
             session_start();
@@ -30,6 +31,7 @@
                 $nombre = $_POST['nombre'];
                 $password = md5($_POST['password']);
                 $data = "user_name='".$nombre."' AND user_password='".$password."'";
+                
                 $u=$model->login("users",$data);
                 if($u){
                     foreach($u as $value){

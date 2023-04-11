@@ -9,7 +9,7 @@ class Model
     {
         $this->Modelo = array();
         $this->datos = array();
-        $this->db = new PDO('mysql:host=localhost;dbname=tienda', "root", "");
+        $this->db = new PDO('mysql:host=localhost;dbname=tienda', "root", "NoZo161018K");
     }
 
     //BUSCAR LOG IN
@@ -20,7 +20,7 @@ class Model
         while ($filas = $resultado->fetchAll(PDO::FETCH_ASSOC)) {
             $this->datos[] = $filas;
         }
-
+        return $this->datos;
     }
     
     //Función para mostrar los datos de tabla x
