@@ -32,7 +32,7 @@
               <div class="card-content">
                 <div class="card-body">
                   <?php foreach ($datos_tienda as $data => $value) { ?>
-                    <form class="form" action="index.php" method="post" novalidate>
+                    <form class="form needs-validation" action="index.php" method="post" novalidate>
                       <div class="row">
                         <div class="col-md-6 col-12">
                           <div class="form-group mandatory">
@@ -109,3 +109,4 @@
 <!-- Need: Apexcharts -->
 <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
 <script src="assets/static/js/pages/dashboard.js"></script>
+<script src="js/validacionForm.js"></script>

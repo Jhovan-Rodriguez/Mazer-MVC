@@ -32,7 +32,22 @@
         </div>
       </div>
       <div class="col-lg-7 d-none d-lg-block">
-        <div id="auth-right"></div>
+        <div id="auth-right" style="display:grid;">
+        <div class="col-md-7" style="margin:auto;">
+                <div class="card">
+                  <div class="card-content">
+                    <div class="card-body">
+                      <h4 class="card-title">INTEGRANTES</h4>
+                      <p class="card-text">
+                      Hernández Campillo Kevin Alejandro
+                      Rodriguez Moreno Jorge Jhovan
+                      </p>
+                      </div>
+                  </div>
+                </div>
+              </div>
+
+        </div>
       </div>
     </div>
   </div>

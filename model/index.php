@@ -9,7 +9,7 @@ class Model
     {
         $this->Modelo = array();
         $this->datos = array();
-        $this->db = new PDO('mysql:host=localhost;dbname=tienda', "root", "NoZo161018K");
+        $this->db = new PDO('mysql:host=localhost;dbname=db_tienda', "root", "root");
     }
 
     //BUSCAR LOG IN
@@ -132,6 +132,60 @@ class Model
         }
 
     }
+
+    //Funcion para traer los productos de x tienda
+    public function get_productos($nombre_tienda){
+        $sql = "SELECT productos.* FROM productos 
+        JOIN tienda on tienda.id=productos.id_tienda 
+        where tienda.nombre = '$nombre_tienda';";
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        return $results;
+    }
+
+    //Funcion para traer categorias es una tienda
+    public function get_categoria($data)
+    {
+        foreach ($data as $key => $value) {
+            $id_categoria=$value['id_categoria'];
+        }
+        $sql = "SELECT * from categorias where id=" . $id_categoria . ";";
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        return $results;
+    }
+
+    //Funcion para añadir productos
+    public function addProducto($codigo,$nombre,$precio,$stock,$id_categoria,$id_tienda)
+    {
+        $sql = "INSERT INTO productos(codigo,nombre,precio,stock,id_categoria,id_tienda) VALUES('$codigo','$nombre','$precio','$stock','$id_categoria','$id_tienda')";
+        $statement = $this->db->prepare($sql);
+        $resultado = $statement->execute();
+
+        if ($resultado) {
+            return "success";
+        } else {
+            return "failed";
+        }
+    }
+
+    public function updateProducto($codigo,$nombre,$precio,$stock,$id_categoria,$id_tienda,$id_producto){
+        $sql = "UPDATE productos SET codigo='$codigo', nombre='$nombre',precio='$precio',
+        stock='$stock',id_categoria='$id_categoria' WHERE id=$id_producto";
+        $statement = $this->db->prepare($sql);
+        $resultado = $statement->execute();
+
+        if ($resultado) {
+            // La operación se realizó correctamente
+            return "success";
+        } else {
+            // La operación falló
+            return "failed";
+        }
+    }
+
 
 
 }

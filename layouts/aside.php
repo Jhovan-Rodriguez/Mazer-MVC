@@ -84,7 +84,7 @@ $id_usuario = $_SESSION['login_id'];
               </a>
             </li>
             <li class="sidebar-item active">
-              <a href="index.php" class="sidebar-link">
+              <a data-options='[["m","inventario"]]' href="index.php" class="sidebar-link" data-function>
                 <i class="bi bi-cart-dash-fill"></i>
                 <span>Inventario</span>
               </a>
@@ -99,18 +99,6 @@ $id_usuario = $_SESSION['login_id'];
               <a href="index.php" class="sidebar-link" data-function data-options='[["m","categoria"]]'>
                 <i class="bi bi-bookmarks-fill"></i>
                 <span>Categorias</span>
-              </a>
-            </li>
-            <li class="sidebar-item active">
-              <a href="index.php" class="sidebar-link">
-                <i class="bi bi-cash-coin"></i>
-                <span>Venta</span>
-              </a>
-            </li>
-            <li class="sidebar-item active">
-              <a href="index.php" class="sidebar-link">
-                <i class="bi bi-journal-bookmark-fill"></i>
-                <span>Historial de ventas</span>
               </a>
             </li>
              <?php } ?> 
