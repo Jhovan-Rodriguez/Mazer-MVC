@@ -114,6 +114,7 @@
     static function InTienda(){
         session_start();
         $id_tienda = $_POST['id'];
+        $_SESSION['id_tienda']= $_POST['id'];
         $model = new Model();
         $resultado = $model->consultaTienda($id_tienda);
         foreach ($resultado as $datos => $value) {
@@ -126,7 +127,8 @@
     // Muestra la vista de la tabla de categorias
     static function categoria(){
         $tiendas   = new Model();
-        $dato       = $tiendas->mostrar('categorias','1');
+        $condition = "id_tienda='".$_SESSION['id_tienda']."'";
+        $dato       = $tiendas->mostrar('categorias',$condition);
         require_once("views/categorias.php");
     }
     // Muestra el form para añadir una categoria
@@ -153,6 +155,11 @@
         $condition = 'id='.$id;
         $categori   = new Model();
         $dato       = $categori->actualizar('categorias',$data,$condition);
+        if($dato){
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'La informacion se actualizo', 'success')}); </script>";
+        }else{
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+        }
         modeloController::categoria();
         
     }
@@ -163,6 +170,11 @@
         $condition = 'id='.$id;
         $categori   = new Model();
         $dato       = $categori->eliminar('categorias',$condition);
+        if($dato){
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'La categoria se elimino', 'success')}); </script>";
+        }else{
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+        }
         modeloController::categoria();
         
     }
@@ -176,8 +188,103 @@
         $data = "'".$nombre."','".$descripcion."','".$fecha_actual."','".$id_tienda."'";
         $categoria   = new Model();
         $dato       = $categoria->insertar('categorias',$data);
+        if($dato){
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'La categoria se agrego', 'success')}); </script>";
+        }else{
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+        }
         modeloController::categoria();
         
     }
 
+    // Muestra la vista de la tabla de usuarios
+    static function usuarios(){
+        $tiendas   = new Model();
+        $condition = "id_tienda='".$_SESSION['id_tienda']."'";
+        $dato       = $tiendas->mostrar('users',$condition);
+        require_once("views/usuarios.php");
+    }
+
+    // Añadir nuevo usuario
+    static function addUsuario(){
+        $_POST['m'] = null;
+        $nombre = $_POST['name'];
+        $apellido_p = $_POST['apellido_p'];
+        $apellido_m = $_POST['apellido_m'];
+        $user_name = $_POST['user_name'];
+        $pass_conf = $_POST['conf_pass']; 
+        $pass = $_POST['pass'];
+        if (($pass != $pass_conf)){
+            //Colocación de alertas
+            echo "<script>  window.addEventListener('load', function() { Swal.fire('Error!', 'La contraseña no coincide', 'error')}); </script>"; 
+            echo "<script>  document.body.innerHTML = ''; </script>";
+            modeloController::usuarios();
+            return "Error";
+        }
+        $pass = md5($pass);
+        $email = $_POST['email'];
+        $fecha_actual = date('Y-m-d H:i:s');
+        $data = "'".$nombre."','".$apellido_m."','".$apellido_p."','".$user_name."','".$pass."','".$email."','".$fecha_actual."','".$_SESSION['id_tienda']."'";
+        $categoria   = new Model();
+        $dato       = $categoria->insertar('users',$data);
+        if($dato){
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'El usuario se ha registrado con exito', 'success')}); </script>";
+        }else{
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+        }
+        modeloController::usuarios();
+        
+    }
+    static function viewAddUsuario(){
+        require_once("views/addUsuario.php");
+    }
+
+    // Muestra el form para editar un usuario
+    static function viewEditUsuario(){
+        $id = $_POST['id'];
+        $condition = 'id='.$id;
+        $categori   = new Model();
+        $dato       = $categori->mostrar('users',$condition);
+        $data_categoria = $dato[0][0];
+        require_once("views/editarUsuario.php");
+    }
+
+    // Actualizar un usuario
+    static function updateUsuario(){
+        $id = $_POST['id'];
+        $nombre = $_POST['name'];
+        $apellido_p = $_POST['apellido_p'];
+        $apellido_m = $_POST['apellido_m'];
+        $user_name = $_POST['user_name'];
+        $email = $_POST['email'];
+        $fecha_actual = date('Y-m-d H:i:s');
+
+        $data = "nombre='".$nombre."',apellido_p='".$apellido_p."',apellido_m='".$apellido_m."',user_name='".$user_name."',user_email='".$email."',date_added='".$fecha_actual."'";
+        $condition = 'id='.$id;
+        $categori   = new Model();
+        $dato       = $categori->actualizar('users',$data,$condition);
+        if($dato){
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'La informacion se actualizo', 'success')}); </script>";
+        }else{
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+        }
+        modeloController::usuarios();
+        
+    }
+
+    // Eliminar usuario
+    static function delUsuario(){
+        $id = $_POST['id'];
+        $condition = 'id='.$id;
+        $categori   = new Model();
+        $dato       = $categori->eliminar('users',$condition);
+        if($dato){
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'El usuario se elimino', 'success')}); </script>";
+        }else{
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+        }
+        modeloController::usuarios();
+        
+    }
+    
 }

@@ -40,6 +40,7 @@
                                 placeholder="Nombre de la categoria"
                                 name="name"
                                 data-parsley-required="true"
+                                required
                               />
                             </div>
                           </div>
@@ -57,6 +58,7 @@
                                 placeholder="Descripcion de la categoria"
                                 name="descripcion"
                                 data-parsley-required="true"
+                                required
                               />
                             </div>
                           </div>

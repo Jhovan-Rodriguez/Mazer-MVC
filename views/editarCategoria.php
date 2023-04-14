@@ -41,6 +41,7 @@
                                 name="name"
                                 value="<?php echo $data_categoria['nombre']; ?>"
                                 data-parsley-required="true"
+                                required
                               />
                             </div>
                           </div>
@@ -59,6 +60,7 @@
                                 name="descripcion"
                                 value="<?php echo $data_categoria['descripcion']; ?>"
                                 data-parsley-required="true"
+                                required
                               />
                             </div>
                           </div>

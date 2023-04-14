@@ -13,11 +13,11 @@
         <div class="page-heading">
             <div class="row">
                 <div class="col-md-9">
-                    <h3>Categorias</h3>
+                    <h3>Usuarios</h3>
                 </div>
                 <div class="col-md-2">
                     <a href="#" data-function>
-                        <span data-options='[["m","viewAddCategoria"]]' class="badge bg-success">Agregar Nueva Categoria</span>
+                        <span data-options='[["m","viewAddUsuario"]]' class="badge bg-success">Agregar Nuevo Usuario</span>
                     </a>
                 </div>
             </div>
@@ -29,9 +29,12 @@
                         <table class="table" id="table1">
                             <thead>
                                 <tr>
+                                    <th>Id</th>
                                     <th>Nombre</th>
-                                    <th>Descripcion</th>
-                                    <th>Fecha Agregada</th>
+                                    <th>Apellido</th>
+                                    <th>Usuario</th>
+                                    <th>E-mail</th>
+                                    <th>Fecha Agregado</th>
                                     <th>Accion</th>
                                 </tr>
                             </thead>
@@ -41,10 +44,19 @@
                                     foreach ($dato as $key => $value): foreach ($value as $v): ?>
                                             <tr>
                                                 <th>
+                                                    <?php echo $v['id'] ?>
+                                                </th>
+                                                <th>
                                                     <?php echo $v['nombre'] ?>
                                                 </th>
                                                 <th>
-                                                    <?php echo $v['descripcion'] ?>
+                                                    <?php echo $v['apellido_p']." "; echo $v['apellido_m']; ?>
+                                                </th>
+                                                <th>
+                                                    <?php echo $v['user_name'] ?>
+                                                </th>
+                                                <th>
+                                                    <?php echo $v['user_email'] ?>
                                                 </th>
                                                 <th>
                                                     <?php echo $v['date_added'] ?>
@@ -56,8 +68,8 @@
                                                             <i class="bi bi-three-dots-vertical"></i>
                                                         </button>
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="#" data-function data-options='[["m","viewEditCategoria"],["id","<?php echo $v['id'] ?>"]]'><i class="bi bi-pencil-square text-warning m-1"></i>Editar</a>
-                                                            <a class="dropdown-item" href="#" data-function data-options='[["m","delCategoria"],["id","<?php echo $v['id'] ?>"]]' ><i class="bi bi-trash3-fill text-danger m-1"></i>Eliminar</a>
+                                                            <a class="dropdown-item" href="#" data-function data-options='[["m","viewEditUsuario"],["id","<?php echo $v['id'] ?>"]]'><i class="bi bi-pencil-square text-warning m-1"></i>Editar</a>
+                                                            <a class="dropdown-item" href="#" data-function data-options='[["m","delUsuario"],["id","<?php echo $v['id'] ?>"]]'><i class="bi bi-trash3-fill text-danger m-1"></i>Eliminar</a>
                                                         </div>
                                                     </div>
                                                 </th>
