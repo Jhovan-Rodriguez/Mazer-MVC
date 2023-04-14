@@ -20,6 +20,16 @@
             require_once("views/editarTienda.php");
         }
 
+        //Funcion vista para añadir productos
+        static function viewAddProducto(){
+            session_start();
+            $nombre_tienda = $_SESSION['nombre_tienda'];
+            $inventario = new Model();
+            $dato=$inventario->get_productos($nombre_tienda);
+            $categoria = $inventario->get_categoria($dato);
+            require_once("views/addProducto.php");
+        }
+
         //Función para el logueo de usuarios e identificación de variables de sesión
         static function login(){
             
@@ -69,6 +79,19 @@
         require_once("views/tiendas.php");
     }
 
+    static function inventario()
+    {
+        session_start();
+        $nombre_tienda = $_SESSION['nombre_tienda'];
+        $inventario = new Model();
+        $dato=$inventario->get_productos($nombre_tienda);
+        $categoria = $inventario->get_categoria($dato);
+        require_once("views/inventario.php");
+        
+    }
+
+    // FUNCIONES PARA LA SECCIÓN DE TIENDAS
+
     //Función para añadir tienda a la base de datos
     static function addTienda()
     {
@@ -90,6 +113,7 @@
 
     }
 
+    //Funcion para editar la tienda
     static function EditTienda()
     {
         session_start();
@@ -111,6 +135,7 @@
         }
     }
 
+    //Funcion para ingresar a la tienda
     static function InTienda(){
         session_start();
         $id_tienda = $_POST['id'];
@@ -122,6 +147,8 @@
         $_SESSION['nombre_tienda'] = $nombre_tienda;
         require_once("views/index.php");
     }
+
+    // FUNCIONES PARA LA SECCIÓN DE CATEGORIAS
 
     // Muestra la vista de la tabla de categorias
     static function categoria(){
@@ -178,6 +205,66 @@
         $dato       = $categoria->insertar('categorias',$data);
         modeloController::categoria();
         
+    }
+
+    // FUNCIONES PARA LA SECCIÓN DE PRODUCTOS
+    static function addProducto(){
+        session_start();
+        $codigo = $_POST["codigo"];
+        $nombre = $_POST["nombre"];
+        $precio = $_POST['precio'];
+        $stock = $_POST['stock'];
+        $id_categoria = $_POST['categoria'];
+        $id_tienda = $_POST['id_tienda'];
+        // Realiza la lógica de guardar el producto en la base de datos
+        $model = new Model();
+        $resultado = $model->addProducto($codigo,$nombre,$precio,$stock,$id_categoria,$id_tienda);
+        //Se redirecciona a la vista de inventario
+        require_once("views/inventario.php");
+
+        //Colocación de alertas
+        if ($resultado == 'success') {
+            echo "<script>Swal.fire('Registro exitoso!', 'El producto se ha registrado con exito', 'success')</script>";
+        } else {
+            echo "<script>Swal.fire('Registro fallido!', 'El producto se no ha registrado', 'error')</script>";
+
+        }
+
+    }
+
+    static function viewEditProducto(){
+        $id = $_POST['id'];
+        $condition = 'id='.$id;
+        $producto  = new Model();
+        $dato       = $producto->mostrar('productos',$condition);
+        $nombre_tienda = $_SESSION['nombre_tienda'];
+        $productos=$producto->get_productos($nombre_tienda);
+        $categoria = $producto->get_categoria($productos);
+        $data_producto = $dato[0][0];
+        require_once("views/editarProducto.php");
+    }
+
+    //Funcion para actualizar productos
+    static function updateProducto(){
+        $codigo = $_POST["codigo"];
+        $nombre = $_POST["nombre"];
+        $precio = $_POST['precio'];
+        $stock = $_POST['stock'];
+        $id_producto=$_POST['id_producto'];
+        $id_categoria = $_POST['categoria'];
+        $id_tienda = $_POST['id_tienda'];
+        $modelo = new Model();
+        $resultado = $modelo->updateProducto($codigo,$nombre,$precio,$stock,$id_categoria,$id_tienda,$id_producto);
+        //Se redirecciona a la vista de inventario
+        require_once("views/inventario.php");
+
+        //Colocación de alertas
+        if ($resultado == 'success') {
+            echo "<script>Swal.fire('Actualización exitoso!', 'El producto se ha actualizado con exito', 'success')</script>";
+        } else {
+            echo "<script>Swal.fire('Actualización fallido!', 'El producto se no ha actualizado', 'error')</script>";
+
+        }
     }
 
 }

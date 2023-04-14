@@ -1,4 +1,4 @@
-<title>Tiendas</title>
+<title>Categorias</title>
 <div id="app">
     <?php
     require_once("layouts/aside.php");
