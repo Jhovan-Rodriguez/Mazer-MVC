@@ -69,9 +69,12 @@
                                                         <select class="choices form-select" name="categoria" value="<?php echo $data_producto['id_categoria'] ?>"  required>
                                                             <?php if(!empty($categoria)){
                                                                foreach ($categoria as $key => $value) { ?>
-                                                                    <option value="<?php echo $value['id'] ?>"><?php echo $value['nombre']; ?></option>
-                                                              <?php } ?>
-                                                                
+                                                                    <?php if($value['id']==$data_producto['id_categoria']){ ?>
+                                                                        <option selected value="<?php echo $value['id'] ?>"><?php echo $value['nombre']; ?></option>
+                                                                    <?php }else{ ?>
+                                                                        <option value="<?php echo $value['id'] ?>"><?php echo $value['nombre']; ?></option>                                                            
+                                                                    <?php } ?> 
+                                                                <?php } ?>
                                                             <?php }else{ ?>    
                                                                 <option value="">No tiene categorias</option>
                                                             <?php } ?>

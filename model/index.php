@@ -9,7 +9,7 @@ class Model
     {
         $this->Modelo = array();
         $this->datos = array();
-        $this->db = new PDO('mysql:host=localhost;dbname=db_tienda', "root", "root");
+        $this->db = new PDO('mysql:host=localhost;dbname=tienda', "root", "");
     }
 
     //BUSCAR LOG IN
@@ -65,6 +65,7 @@ class Model
         return $results;
     }
 
+    //Funcion para añadir tienda desde ADMIN
     public function addTienda($nombre, $activa)
     {
         $sql = "INSERT INTO tienda(nombre,activa) VALUES('$nombre','$activa')";
@@ -78,6 +79,7 @@ class Model
         }
     }
 
+    //Función impura para actualizar datos en la base de datos
     public function actualizar($tabla, $data, $condicion){
         $consulta="update ".$tabla." set ".$data." where ".$condicion;
         $resultado=$this->db->query($consulta);
@@ -88,6 +90,7 @@ class Model
         }
     }
 
+    //Funcion impura para eliminar datos de cualquier tabla de la BD
         public function eliminar($tabla, $condicion){
             $eli="delete from ".$tabla." where ".$condicion;
             $res=$this->db->query($eli);
@@ -98,6 +101,7 @@ class Model
             }
         }
 
+    //Función impura para insertar datos 
     public function insertar($tabla, $data){
         $consulta="insert into ".$tabla." values(null,".$data.")";
         $resultado=$this->db->query($consulta);
@@ -108,6 +112,7 @@ class Model
         }
     }
 
+    //Funcion para consultar tienda
     public function consultaTienda($id_tienda)
     {
         $sql = "SELECT * from tienda where id=" . $id_tienda . ";";
@@ -117,6 +122,7 @@ class Model
         return $results;
     }
 
+    //Funcion para actualizar datos en tienda 
     public function EditTienda($id_tienda, $nombre, $activa)
     {
         $sql = "UPDATE tienda SET nombre='$nombre', activa='$activa' WHERE id=$id_tienda";
@@ -135,8 +141,9 @@ class Model
 
     //Funcion para traer los productos de x tienda
     public function get_productos($nombre_tienda){
-        $sql = "SELECT productos.* FROM productos 
+        $sql = "SELECT productos.*,categorias.nombre as cat_nombre FROM productos 
         JOIN tienda on tienda.id=productos.id_tienda 
+        JOIN categorias on categorias.id = productos.id_categoria 
         where tienda.nombre = '$nombre_tienda';";
         $statement = $this->db->prepare($sql);
         $statement->execute();
@@ -171,6 +178,7 @@ class Model
         }
     }
 
+    //Funcion para actulizar la información del producto
     public function updateProducto($codigo,$nombre,$precio,$stock,$id_categoria,$id_tienda,$id_producto){
         $sql = "UPDATE productos SET codigo='$codigo', nombre='$nombre',precio='$precio',
         stock='$stock',id_categoria='$id_categoria' WHERE id=$id_producto";
@@ -186,6 +194,43 @@ class Model
         }
     }
 
+    // FUNCIONES PARA OBTENER DATOS DEL DASHBOARD
+
+    //Funcion para el conteo de productos
+    public function totalProductos($id_tienda){
+        $sql = "SELECT COUNT(*) AS conteoProductos from productos where id_tienda=" . $id_tienda . ";";
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        return $results;
+    }
+
+    //Funcion para el conteo de Categorias
+    public function totalCategorias($id_tienda){
+        $sql = "SELECT COUNT(*) AS conteoCategorias from categorias where id_tienda=" . $id_tienda . ";";
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        return $results;
+    }
+
+    //Funcion para el conteo de usuarios
+    public function totalUsuarios($id_tienda){
+        $sql = "SELECT COUNT(*) AS conteoUsuarios from users where id_tienda=" . $id_tienda . ";";
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        return $results;
+    }
+
+    //Funcion para el conteo de cambios
+    //public function totalCambios($id_tienda){
+    //    $sql = "SELECT COUNT(*) AS conteoCambios from historial where id_tienda=" . $id_tienda . ";";
+    //    $statement = $this->db->prepare($sql);
+    //    $statement->execute();
+    //    $results = $statement->fetchAll();
+    //    return $results;
+    //}
 
 
 }

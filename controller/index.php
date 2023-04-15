@@ -185,9 +185,9 @@
         $categori   = new Model();
         $dato       = $categori->actualizar('categorias',$data,$condition);
         if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'La informacion se actualizo', 'success')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La informacion se actualizo', 'success')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
         modeloController::categoria();
         
@@ -200,9 +200,9 @@
         $categori   = new Model();
         $dato       = $categori->eliminar('categorias',$condition);
         if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'La categoria se elimino', 'success')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La categoria se elimino', 'success')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
         modeloController::categoria();
         
@@ -218,9 +218,9 @@
         $categoria   = new Model();
         $dato       = $categoria->insertar('categorias',$data);
         if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'La categoria se agrego', 'success')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La categoria se agrego', 'success')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
         modeloController::categoria();
         
@@ -258,9 +258,9 @@
         $categoria   = new Model();
         $dato       = $categoria->insertar('users',$data);
         if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'El usuario se ha registrado con exito', 'success')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'El usuario se ha registrado con exito', 'success')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
         modeloController::usuarios();
         
@@ -294,9 +294,9 @@
         $categori   = new Model();
         $dato       = $categori->actualizar('users',$data,$condition);
         if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'La informacion se actualizo', 'success')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La informacion se actualizo', 'success')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
         modeloController::usuarios();
         
@@ -309,9 +309,9 @@
         $categori   = new Model();
         $dato       = $categori->eliminar('users',$condition);
         if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operasion exitosa!', 'El usuario se elimino', 'success')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'El usuario se elimino', 'success')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la operasion', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
         modeloController::usuarios();
         
@@ -346,14 +346,16 @@
     static function viewEditProducto(){
         $id = $_POST['id'];
         $condition = 'id='.$id;
+        //Se crea el modelo
         $producto  = new Model();
-        $dato       = $producto->mostrar('productos',$condition);
+        //Se obtienen los valores del producto
+        $dato= $producto->mostrar('productos',$condition);
         $nombre_tienda = $_SESSION['nombre_tienda'];
-        //$productos=$producto->get_productos($nombre_tienda);
-        //$categoria = $producto->get_categoria($productos);
-        $condition="id_tienda='".$_SESSION['id_tienda']."'";
-        $dato = $producto->mostrar('categorias',$condition);
-        $categoria = $dato[0];
+        // Se obtienen los datos de categorias
+        $condition_tienda="id_tienda='".$_SESSION['id_tienda']."'";
+        $dato_categorias = $producto->mostrar('categorias',$condition_tienda);
+        //Variables a utilizar en la vista
+        $categoria = $dato_categorias[1];
         $data_producto = $dato[0][0];
         require_once("views/editarProducto.php");
     }
@@ -377,6 +379,24 @@
             echo "<script>Swal.fire('Actualización exitoso!', 'El producto se ha actualizado con exito', 'success')</script>";
         } else {
             echo "<script>Swal.fire('Actualización fallido!', 'El producto se no ha actualizado', 'error')</script>";
+
+        }
+    }
+
+    //Función para eliminar un producto
+    static function delProducto(){
+        $id_producto=$_REQUEST['id'];
+        $condicion='id='.$id_producto;
+        $modelo = new Model();
+        $resultado = $modelo->eliminar('productos',$condicion);
+        //Se redirecciona a la vista de inventario
+        require_once("views/inventario.php");
+
+        //Colocación de alertas
+        if ($resultado) {
+            echo "<script>Swal.fire('Eliminación exitosa!', 'El producto se ha eliminado con exito', 'success')</script>";
+        } else {
+            echo "<script>Swal.fire('Eliminación fallida!', 'El producto se no ha actualizado', 'error')</script>";
 
         }
     }

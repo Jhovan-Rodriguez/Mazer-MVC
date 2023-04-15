@@ -78,7 +78,7 @@
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <tr>
-                                        <th colspan="6"> No hay registros </td>
+                                        <th colspan="7"> No hay registros </td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
