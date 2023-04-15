@@ -22,11 +22,13 @@
 
         //Funcion vista para añadir productos
         static function viewAddProducto(){
-            session_start();
-            $nombre_tienda = $_SESSION['nombre_tienda'];
             $inventario = new Model();
-            $dato=$inventario->get_productos($nombre_tienda);
-            $categoria = $inventario->get_categoria($dato);
+            //$dato=$inventario->get_productos($nombre_tienda);
+            $condition="id_tienda='".$_SESSION['id_tienda']."'";
+            $dato = $inventario->mostrar('categorias',$condition);
+            $categoria = $dato[0];
+            
+            //$categoria = $inventario->get_categoria($dato);
             require_once("views/addProducto.php");
         }
 
@@ -347,8 +349,11 @@
         $producto  = new Model();
         $dato       = $producto->mostrar('productos',$condition);
         $nombre_tienda = $_SESSION['nombre_tienda'];
-        $productos=$producto->get_productos($nombre_tienda);
-        $categoria = $producto->get_categoria($productos);
+        //$productos=$producto->get_productos($nombre_tienda);
+        //$categoria = $producto->get_categoria($productos);
+        $condition="id_tienda='".$_SESSION['id_tienda']."'";
+        $dato = $producto->mostrar('categorias',$condition);
+        $categoria = $dato[0];
         $data_producto = $dato[0][0];
         require_once("views/editarProducto.php");
     }

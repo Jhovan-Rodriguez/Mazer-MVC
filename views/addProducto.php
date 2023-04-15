@@ -66,9 +66,10 @@
                                                     <label for="first-name-column" class="form-label">Categoria</label>
                                                     <div class="form-group">
                                                         <select class="choices form-select" name="categoria" required>
+                                                        <option value="">Seleccione una categoria</option>
                                                             <?php if(!empty($categoria)){
                                                                foreach ($categoria as $key => $value) { ?>
-                                                                    <option value="">Seleccione una categoria</option>
+                                                                    
                                                                     <option value="<?php echo $value['id'] ?>"><?php echo $value['nombre']; ?></option>
                                                               <?php } ?>
                                                                 
@@ -81,7 +82,7 @@
                                             </div>
                                         </div>
                                         <?php foreach ($dato as $key => $data) { ?>
-                                            <input type="hidden" name="id_tienda" value="<?php echo $data['id_tienda']; ?>">
+                                            <input type="hidden" name="id_tienda" value="<?php echo $_SESSION['id_tienda']; ?>">
                                         <?php } ?>
                                         <div class="row">
                                             <div class="col-12 d-flex justify-content-end">
