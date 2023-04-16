@@ -4,11 +4,13 @@
     <?php
     require_once("layouts/aside.php");
     include("../model/index.php");
-    session_start();
     $nombre_tienda = $_SESSION['nombre_tienda'];
     $inventario = new Model();
     $dato = $inventario->get_productos($nombre_tienda);
-    $categoria = $inventario->get_categoria($dato);
+    if(!empty($dato)){
+        $categoria = $inventario->get_categoria($dato);
+
+    }
     ?>
     <div id="main">
         <header class="mb-3">
@@ -142,6 +144,7 @@
     </div>
 </div>
 <script>
+    //Funcion para abrir el modal de eliminar 
 function modal(id_usuario){
     $('#'+id_usuario).click();
 }

@@ -139,6 +139,7 @@ class Model
 
     }
 
+
     //Funcion para traer los productos de x tienda
     public function get_productos($nombre_tienda){
         $sql = "SELECT productos.*,categorias.nombre as cat_nombre FROM productos 

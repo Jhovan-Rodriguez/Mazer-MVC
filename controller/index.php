@@ -83,11 +83,13 @@
 
     static function inventario()
     {
-        session_start();
+
         $nombre_tienda = $_SESSION['nombre_tienda'];
         $inventario = new Model();
         $dato=$inventario->get_productos($nombre_tienda);
-        $categoria = $inventario->get_categoria($dato);
+        if(!empty($dato)){
+            $categoria = $inventario->get_categoria($dato);
+        }
         require_once("views/inventario.php");
         
     }
@@ -151,6 +153,30 @@
         require_once("views/index.php");
     }
 
+    //Funcion para eliminar las tiendas
+    static function delTienda(){
+        $id_tienda=$_POST['id'];
+        $modelo = new Model();
+        $condicion='id_tienda='.$id_tienda;
+        $categorias = $modelo->mostrar('categorias',$condicion);
+        $usuarios = $modelo->mostrar('users',$condicion);
+        //Se valida que la tienda no tenga dependencias en ellas
+        if(!empty($categorias) or !empty($usuarios)){
+            modeloController::tiendas();
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'La tienda tiene dependencias en la aplicción, favor de eliminarlas', 'error')}); </script>";
+        }else{
+            //Si no tiene dependencias, se puede eliminar
+            $condicion='id='.$id_tienda;
+            $dato=$modelo->eliminar('tienda',$condicion);
+            if($dato){
+                echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La tienda se eliminó correctamente', 'success')}); </script>";
+            }else{
+                echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'La tienda no se ha eliminado', 'error')}); </script>";
+            }
+            modeloController::tiendas();
+        }
+    }
+
     // FUNCIONES PARA LA SECCIÓN DE CATEGORIAS
 
     // Muestra la vista de la tabla de categorias
@@ -198,14 +224,23 @@
         $id = $_POST['id'];
         $condition = 'id='.$id;
         $categori   = new Model();
-        $dato       = $categori->eliminar('categorias',$condition);
-        if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La categoria se elimino', 'success')}); </script>";
+
+        //Validación de eliminación de dependencias
+        $condicion='id_categoria='.$id;
+        $validacion = $categori->mostrar('productos',$condicion);
+        if(!empty($validacion)){
+            modeloController::categoria();
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'La categoria tiene productos ligados', 'error')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
+        //Funcion para eliminar categorias
+            $dato       = $categori->eliminar('categorias',$condition);
+            if($dato){
+                echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La categoria se elimino', 'success')}); </script>";
+            }else{
+                echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
+            }
+            modeloController::categoria();
         }
-        modeloController::categoria();
-        
     }
 
     // Añadir nueva categoria
