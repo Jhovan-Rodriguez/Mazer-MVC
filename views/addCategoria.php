@@ -1,6 +1,14 @@
+<?php 
+  session_start();
+  if(!(isset($_SESSION['nombre']))){
+
+    require_once("../config.php");
+    header("location:".urlsite);
+  }else{
+?>
+
 <div id="app">
   <?php
-  session_start();
   require_once("layouts/aside.php");
   ?>
   <div id="main">
@@ -75,3 +83,5 @@
 <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
 <script src="assets/static/js/pages/dashboard.js"></script>
 <script src="js/validacionForm.js"></script>
+
+<?php } ?>

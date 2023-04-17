@@ -38,6 +38,8 @@
             $model = new Model();
             
             session_start();
+
+
             
             if(isset($_POST['btnlogin'])){
                 $nombre = $_POST['nombre'];
@@ -45,16 +47,24 @@
                 $data = "user_name='".$nombre."' AND user_password='".$password."'";
                 
                 $u=$model->login("users",$data);
+                $id_tienda=$u[0][0]['id_tienda'];
+                
+                //$contition="id='".$id_tienda."' AND activa=1";
+                //$contition="id=2";
+                $tienda=$model->estado_tienda($id_tienda);
+                
                 if($u){
                     foreach($u as $value){
-                        $_SESSION['nombre'] = $value[0]['user_name'];
-                        $_SESSION['login_id'] = $value[0]['id'];
-                        $_SESSION['id_tienda']= $value[0]['id_tienda'];
-                        $info_tienda = $model->encontrar_tienda($value[0]['id_tienda']);
                         
-                    }
-                    foreach($info_tienda as $data=>$datos){
-                        $_SESSION['nombre_tienda']= $datos[0]['nombre'];
+                        if($tienda){
+                            $_SESSION['nombre'] = $value[0]['user_name'];
+                            $_SESSION['login_id'] = $value[0]['id'];
+                            $_SESSION['id_tienda']= $value[0]['id_tienda'];
+                            $info_tienda = $model->encontrar_tienda($value[0]['id_tienda']);
+                            foreach($info_tienda as $data=>$datos){
+                                $_SESSION['nombre_tienda']= $datos[0]['nombre'];
+                            }
+                        }
                     }
                 }
             

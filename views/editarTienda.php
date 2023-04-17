@@ -1,3 +1,11 @@
+<?php 
+  session_start();
+  if(!(isset($_SESSION['nombre']))){
+
+    require_once("../config.php");
+    header("location:".urlsite);
+  }else{
+?>
 <title>Editar tienda</title>
 <div id="app">
   <?php
@@ -110,3 +118,4 @@
 <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
 <script src="assets/static/js/pages/dashboard.js"></script>
 <script src="js/validacionForm.js"></script>
+<?php } ?>

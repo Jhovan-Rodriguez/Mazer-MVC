@@ -1,3 +1,12 @@
+<?php 
+  session_start();
+  if(!(isset($_SESSION['nombre']))){
+
+    require_once("../config.php");
+    header("location:".urlsite);
+  }else{
+?>
+
 <title>Registrar tienda</title>
 <link rel="stylesheet" href="assets/extensions/sweetalert2/sweetalert2.min.css" />
 <div id="app">
@@ -91,3 +100,4 @@
 <script src="assets/extensions/sweetalert2/sweetalert2.min.js"></script>
 <script src="assets/static/js/pages/sweetalert2.js"></script>
 <script src="js/validacionForm.js"></script>
+<?php } ?>

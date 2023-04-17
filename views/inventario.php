@@ -1,3 +1,11 @@
+<?php 
+  session_start();
+  if(!(isset($_SESSION['nombre']))){
+
+    require_once("../config.php");
+    header("location:".urlsite);
+  }else{
+?>
 <title>Inventario</title>
 <link rel="stylesheet" href="assets/extensions/sweetalert2/sweetalert2.min.css" />
 <div id="app">
@@ -161,3 +169,4 @@ function modal(id_usuario){
 <script src="assets/static/js/pages/datatables.js"></script>
 <script src="assets/extensions/sweetalert2/sweetalert2.min.js"></script>
 <script src="assets/static/js/pages/sweetalert2.js"></script>
+<?php } ?>

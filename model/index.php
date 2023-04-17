@@ -9,7 +9,7 @@ class Model
     {
         $this->Modelo = array();
         $this->datos = array();
-        $this->db = new PDO('mysql:host=localhost;dbname=tienda', "root", "");
+        $this->db = new PDO('mysql:host=localhost;dbname=db_tienda', "root", "root");
     }
 
     //BUSCAR LOG IN
@@ -43,6 +43,23 @@ class Model
         }
         return $this->datos;
     }
+
+    //Consulta a la tabla tiendas, donde se muestren todas menos la root
+    public function estado_tienda($id)
+    {
+        $sql = "SELECT * from tienda WHERE id =$id AND activa = 1 ;";
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        var_dump($results);
+        if(!empty($results)){
+            return true;
+        }else{
+            return false;
+        }
+        
+    }
+
 
     //Función para encontrar tiendas dentro de la aplicación
     public function encontrar_tienda($id_tienda)

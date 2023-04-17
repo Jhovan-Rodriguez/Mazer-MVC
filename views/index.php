@@ -1,3 +1,12 @@
+<?php 
+  session_start();
+  if(!(isset($_SESSION['nombre']))){
+
+    require_once("../config.php");
+    header("location:".urlsite);
+  }else{
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -156,3 +165,5 @@
 </body>
 
 </html>
+
+<?php } ?>

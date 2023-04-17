@@ -1,3 +1,12 @@
+<?php 
+  session_start();
+  if(!(isset($_SESSION['nombre']))){
+
+    require_once("../config.php");
+    header("location:".urlsite);
+  }else{
+?>
+
 <link rel="stylesheet" href="assets/extensions/sweetalert2/sweetalert2.min.css" />
 <div id="app">
   <?php
@@ -128,3 +137,5 @@
 <script src="assets/static/js/pages/dashboard.js"></script>
 <script src="assets/extensions/sweetalert2/sweetalert2.min.js"></script>
 <script src="assets/static/js/pages/sweetalert2.js"></script>
+
+<?php } ?>

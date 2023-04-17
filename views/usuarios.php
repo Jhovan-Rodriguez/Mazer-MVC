@@ -1,3 +1,11 @@
+<?php 
+  session_start();
+  if(!(isset($_SESSION['nombre']))){
+
+    require_once("../config.php");
+    header("location:".urlsite);
+  }else{
+?>
 <title>Tiendas</title>
 <div id="app">
     <?php
@@ -102,3 +110,4 @@
 <script src="assets/extensions/jquery/jquery.min.js"></script>
 <script src="https://cdn.datatables.net/v/bs5/dt-1.12.1/datatables.min.js"></script>
 <script src="assets/static/js/pages/datatables.js"></script>
+<?php } ?>
