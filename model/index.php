@@ -9,7 +9,7 @@ class Model
     {
         $this->Modelo = array();
         $this->datos = array();
-        $this->db = new PDO('mysql:host=localhost;dbname=db_tienda', "root", "root");
+        $this->db = new PDO('mysql:host=localhost;dbname=tienda', "root", "");
     }
 
     //BUSCAR LOG IN
@@ -249,6 +249,29 @@ class Model
     //    $results = $statement->fetchAll();
     //    return $results;
     //}
+
+    //Funcion para obtener el stock del producto
+    public function stock($id_producto){
+        $sql = "SELECT stock from productos where id=" . $id_producto . ";";
+        $statement = $this->db->prepare($sql);
+        $statement->execute();
+        $results = $statement->fetchAll();
+        return $results;
+    }
+
+    public function updateStock($stock,$id_producto){
+        $sql = "UPDATE productos SET stock='$stock' WHERE id=$id_producto";
+        $statement = $this->db->prepare($sql);
+        $resultado = $statement->execute();
+
+        if ($resultado) {
+            // La operación se realizó correctamente
+            return "success";
+        } else {
+            // La operación falló
+            return "failed";
+        }
+    }
 
 
 }

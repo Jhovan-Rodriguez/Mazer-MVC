@@ -6,7 +6,7 @@
     header("location:".urlsite);
   }else{
 ?>
-
+<title>Editar categoría</title>
 <div id="app">
   <?php
   session_start();

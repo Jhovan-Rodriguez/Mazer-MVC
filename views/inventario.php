@@ -99,7 +99,7 @@
                                                                 <div class="modal-content">
                                                                     <div class="modal-header bg-danger">
                                                                         <h5 class="modal-title white" id="myModalLabel120">
-                                                                            ¿Desea Eliminar este producto?
+                                                                            ¿Desea eliminar este producto?
                                                                         </h5>
                                                                         <button type="button" class="close"
                                                                             data-bs-dismiss="modal" aria-label="Close">
@@ -127,6 +127,8 @@
                                                         <a class="dropdown-item" href="#" data-function
                                                             data-options='[["m","viewEditProducto"],["id","<?php echo $data['id']; ?>"]]'><i
                                                                 class="bi bi-pencil-square text-warning m-1"></i>Editar</a>
+                                                        <a class="dropdown-item" href="#" data-function
+                                                            data-options='[["m","viewStockProducto"],["id","<?php echo $data['id']; ?>"]]'><i class="bi bi-currency-dollar text-success m-1 "></i>Stock</a>
                                                         <a class="dropdown-item" onclick="modal(<?php echo $data['id'] ?>)"><i
                                                                 class="bi bi-trash3-fill text-danger m-1"></i>Eliminar</a>
                                                     </div>

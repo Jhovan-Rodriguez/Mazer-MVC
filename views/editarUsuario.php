@@ -6,7 +6,7 @@
     header("location:".urlsite);
   }else{
 ?>
-
+<title>Editar usuario</title>
 <link rel="stylesheet" href="assets/extensions/sweetalert2/sweetalert2.min.css" />
 <div id="app">
     <?php

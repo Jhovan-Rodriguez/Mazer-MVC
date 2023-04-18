@@ -47,13 +47,13 @@
                 $data = "user_name='".$nombre."' AND user_password='".$password."'";
                 
                 $u=$model->login("users",$data);
-                $id_tienda=$u[0][0]['id_tienda'];
-                
-                //$contition="id='".$id_tienda."' AND activa=1";
-                //$contition="id=2";
-                $tienda=$model->estado_tienda($id_tienda);
-                
+
                 if($u){
+                    $id_tienda=$u[0][0]['id_tienda'];
+                
+                    //$contition="id='".$id_tienda."' AND activa=1";
+                    //$contition="id=2";
+                    $tienda=$model->estado_tienda($id_tienda);
                     foreach($u as $value){
                         
                         if($tienda){
@@ -310,6 +310,7 @@
         modeloController::usuarios();
         
     }
+    //Redireccionar a la vista de agregar usuario
     static function viewAddUsuario(){
         require_once("views/addUsuario.php");
     }
@@ -388,6 +389,7 @@
 
     }
 
+    //Función para la vista Editar producto
     static function viewEditProducto(){
         $id = $_POST['id'];
         $condition = 'id='.$id;
@@ -430,6 +432,7 @@
 
     //Función para eliminar un producto
     static function delProducto(){
+        //Utilizacion de variables
         $id_producto=$_REQUEST['id'];
         $condicion='id='.$id_producto;
         $modelo = new Model();
@@ -445,5 +448,71 @@
 
         }
     }
+
+    //Funcion para la vista Stock Producto
+    static function viewStockProducto(){
+        $id = $_POST['id'];
+        $condition = 'id='.$id;
+        //Se crea el modelo
+        $producto  = new Model();
+        //Se obtienen los valores del producto
+        $dato= $producto->mostrar('productos',$condition);
+        $nombre_tienda = $_SESSION['nombre_tienda'];
+        // Se obtienen los datos de categorias
+        $condition_tienda="id_tienda='".$_SESSION['id_tienda']."'";
+        $dato_categorias = $producto->mostrar('categorias',$condition_tienda);
+        //Variables a utilizar en la vista
+        $categoria = $dato_categorias[1];
+        $data_producto = $dato[0][0];
+        require_once("views/stockProducto.php");
+    }
+
+    static function updateStock(){
+        //Variables a utilizar
+        $stock = $_POST["stock_edit"];
+        $id_producto = $_POST['id_producto'];
+        $opcion = $_POST["radio-stacked"];
+ 
+        //Creación del modelo
+        $modelo = new Model();
+        $info_producto= $modelo->stock($id_producto);
+        #var_dump($info_producto[0][0]);
+        #die();
+
+        //Cuando el usuario selecciona agregar stock
+        if($opcion=='agregar'){
+            $updateStock = $stock+$info_producto[0][0];
+            $resultado = $modelo->updateStock($updateStock,$id_producto);
+            require_once("views/inventario.php");
+            if($resultado=='success'){
+                echo "<script>Swal.fire('Actualización exitosa!', 'El stock se ha agregado con exito', 'success')</script>";
+            }else{
+                echo "<script>Swal.fire('Actualización fallida!', 'El stock se no ha agregado', 'error')</script>";
+            }
+        }
+        //Cuando el usuario selecciona eliminar stock
+        if($opcion=='eliminar'){
+            //Se verifica que el stock no puede ser negativo
+            if($stock>$id_producto[0][0]){
+                require_once("views/inventario.php");
+                echo "<script>Swal.fire('Error!', 'No puede haber stock negativo', 'error')</script>";
+            }else{
+                //Se resta el stock
+                $updateStock= $info_producto[0][0]-$stock;
+                $resultado = $modelo->updateStock($updateStock,$id_producto);
+                require_once("views/inventario.php");
+                //Verifica si se realizó la operacion correctamente
+                if($resultado=='success'){
+                    echo "<script>Swal.fire('Actualización exitosa!', 'El stock se ha eliminado con exito', 'success')</script>";
+                }else{
+                    echo "<script>Swal.fire('Actualización fallida!', 'El stock se no ha eliminado', 'error')</script>";
+                }
+            }
+
+        }
+
+    }
+
+
 
 }

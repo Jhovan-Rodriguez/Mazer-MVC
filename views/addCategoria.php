@@ -6,7 +6,7 @@
     header("location:".urlsite);
   }else{
 ?>
-
+<title>Registrar categoría</title>
 <div id="app">
   <?php
   require_once("layouts/aside.php");

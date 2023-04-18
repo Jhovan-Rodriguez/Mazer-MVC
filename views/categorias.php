@@ -81,7 +81,7 @@
                                                                         <div class="modal-content">
                                                                             <div class="modal-header bg-danger">
                                                                                 <h5 class="modal-title white" id="myModalLabel120">
-                                                                                    ¿Desea Eliminar esta categoría?
+                                                                                    ¿Desea eliminar esta categoría?
                                                                                 </h5>
                                                                                 <button type="button" class="close"
                                                                                     data-bs-dismiss="modal" aria-label="Close">
