@@ -493,7 +493,7 @@
         //Cuando el usuario selecciona eliminar stock
         if($opcion=='eliminar'){
             //Se verifica que el stock no puede ser negativo
-            if($stock>$id_producto[0][0]){
+            if($stock>$info_producto[0][0]){
                 require_once("views/inventario.php");
                 echo "<script>Swal.fire('Error!', 'No puede haber stock negativo', 'error')</script>";
             }else{
