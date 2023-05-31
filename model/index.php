@@ -51,7 +51,7 @@ class Model
         $statement = $this->db->prepare($sql);
         $statement->execute();
         $results = $statement->fetchAll();
-        var_dump($results);
+        // var_dump($results);
         if(!empty($results)){
             return true;
         }else{
