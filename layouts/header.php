@@ -18,3 +18,5 @@
 <body>
   <script src="assets/static/js/initTheme.js"></script>
   <script src="assets/added/js/m_post.js"></script>
+  <script src="assets/added/js/undo_changes.js"></script>
+  <script src="assets/added/js/shortcuts.js"></script>

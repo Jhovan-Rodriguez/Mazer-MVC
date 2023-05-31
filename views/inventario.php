@@ -31,9 +31,23 @@
                 <div class="col-md-9">
                     <h3>Inventario</h3>
                 </div>
-                <div class="col-md-2">
-                    <a href="#" data-function>
-                        <span data-options='[["m","viewAddProducto"]]' class="badge bg-success">Agregar producto</span>
+                <div class="col-md-2" style="display: flex;">
+                    <a href="#" data-backup class="m-1" title="Desacer cambios realizados (Z)">
+                    <?php
+                        if(empty($data_backup)){
+                    ?>
+                            <span id="Back" class="badge bg-secondary" data-options='<?php echo $data_backup; ?>'><i class="fa-solid fa-rotate-left"></i> Desacer cambio</span>    
+                        <?php
+                        }else{
+                        ?>
+                            <span id="Back" class="badge bg-success" data-options='<?php echo $data_backup; ?>'><i data-options='<?php echo $data_backup; ?>' class="fa-solid fa-rotate-left"></i> Desacer cambio</span>
+                        <?php
+                        } 
+                        ?>
+                        
+                    </a>
+                    <a href="#" data-function class="m-1" title="Añadir elemento (I)">
+                    <span id="Add" data-options='[["m","viewAddProducto"]]' class="badge bg-success">Agregar producto</span>
                     </a>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 window.addEventListener("load", function() {
-    var etiquetas = document.querySelectorAll("[data-function]");
+    var etiquetas = document.querySelectorAll("[data-backup]");
   
     for (var i = 0; i < etiquetas.length; i++) {
       etiquetas[i].addEventListener("click", function(event) {
@@ -8,8 +8,8 @@ window.addEventListener("load", function() {
   
         var link = event.target; // Obtenemos el elemento en el que se hizo clic
         var data_options = link.getAttribute("data-options");
-
-        var options = JSON.parse(link.getAttribute("data-options"));
+        link.removeAttribute("data-options");
+        var options = JSON.parse(data_options);
         console.log(options);
 
         var form = document.createElement("form");

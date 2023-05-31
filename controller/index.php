@@ -84,7 +84,7 @@
         header("location:" . urlsite);
     }
     //Función para la vista tiendas y el muestreo de datos
-    static function tiendas()
+    static function tiendas($data_backup = null)
     {
         $tiendas = new Model();
         $dato = $tiendas->mostrar_tiendas();
@@ -115,8 +115,13 @@
         // Realiza la lógica de guardar la tienda en la base de datos
         $model = new Model();
         $resultado = $model->addTienda($nombre, $activa);
+        // Creando copia de los datos para realizar la funcion de desacer cambios
+        $condicion='nombre="'.$nombre.'"';
+        $backup = $model->mostrar('tienda',$condicion);
+        $backup = $backup[0][0];
+        $data_backup = '[["m","delTienda"],["id","'.$backup['id'].'"]]';
         //Se redirecciona a la vista de tienda
-        require_once("views/tiendas.php");
+        modeloController::tiendas($data_backup);
         //Colocación de alertas
         if ($resultado == 'success') {
             echo "<script>Swal.fire('Registro exitoso!', 'La tienda se ha registrado con exito', 'success')</script>";
@@ -137,9 +142,14 @@
         $activa = $_POST["radio-stacked"];
         //Se crea un modelo
         $model = new Model();
+        // Creando copia de los datos para realizar la funcion de desacer cambios
+        $condicion='id='.$id;
+        $backup = $model->mostrar('tienda',$condicion);
+        $backup = $backup[0][0];
+        $data_backup = '[["m","EditTienda"],["id","'.$backup['id'].'"],["nombre","'.$backup['nombre'].'"],["radio-stacked","'.$backup['activa'].'"]]';
         //Se llama a la funcion del modelo para editar tienda
         $resultado = $model->EditTienda($id, $nombre, $activa);
-        require_once("views/tiendas.php");
+        modeloController::tiendas($data_backup);
         //Colocación de alertas
         if ($resultado == 'success') {
             echo "<script>Swal.fire('Actualización exitosa!', 'La tienda se ha actualizado con exito', 'success')</script>";
@@ -176,21 +186,25 @@
             echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'La tienda tiene dependencias en la aplicción, favor de eliminarlas', 'error')}); </script>";
         }else{
             //Si no tiene dependencias, se puede eliminar
+            // Creando copia de los datos para realizar la funcion de desacer cambios
             $condicion='id='.$id_tienda;
+            $backup = $modelo->mostrar('tienda',$condicion);
+            $backup = $backup[0][0];
+            $data_backup = '[["m","addTienda"],["nombre","'.$backup['nombre'].'"],["radio-stacked","'.$backup['activa'].'"]]';
             $dato=$modelo->eliminar('tienda',$condicion);
             if($dato){
                 echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La tienda se eliminó correctamente', 'success')}); </script>";
             }else{
                 echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'La tienda no se ha eliminado', 'error')}); </script>";
             }
-            modeloController::tiendas();
+            modeloController::tiendas($data_backup);
         }
     }
 
     // FUNCIONES PARA LA SECCIÓN DE CATEGORIAS
 
     // Muestra la vista de la tabla de categorias
-    static function categoria(){
+    static function categoria($data_backup = null){
         $tiendas   = new Model();
         $condition = "id_tienda='".$_SESSION['id_tienda']."'";
         $dato       = $tiendas->mostrar('categorias',$condition);
@@ -219,13 +233,17 @@
         $data = "nombre='".$nombre."',descripcion='".$descripcion."'";
         $condition = 'id='.$id;
         $categori   = new Model();
+        // Creando copia de los datos para realizar la funcion de desacer cambios
+        $backup = $categori->mostrar('categorias',$condition);
+        $backup = $backup[0][0];
+        $data_backup = '[["m","updateCategoria"],["id","'.$backup['id'].'"],["name","'.$backup['nombre'].'"],["descripcion","'.$backup['descripcion'].'"]]';
         $dato       = $categori->actualizar('categorias',$data,$condition);
         if($dato){
             echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La informacion se actualizo', 'success')}); </script>";
         }else{
             echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
-        modeloController::categoria();
+        modeloController::categoria($data_backup);
         
     }
         
@@ -242,14 +260,20 @@
             modeloController::categoria();
             echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'La categoria tiene productos ligados', 'error')}); </script>";
         }else{
-        //Funcion para eliminar categorias
+            // Creando copia de los datos para realizar la funcion de desacer cambios
+            $backup = $categori->mostrar('categorias',$condition);
+            $backup = $backup[0][0];
+            $data_backup = '[["m","addCategoria"],["name","'.$backup['nombre'].'"],["descripcion","'.$backup['descripcion'].'"]]';
+            //Funcion para eliminar categorias
             $dato       = $categori->eliminar('categorias',$condition);
             if($dato){
                 echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La categoria se elimino', 'success')}); </script>";
             }else{
                 echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
             }
-            modeloController::categoria();
+            //require_once("views/categorias.php");
+            modeloController::categoria($data_backup);
+
         }
     }
 
@@ -262,12 +286,20 @@
         $data = "'".$nombre."','".$descripcion."','".$fecha_actual."','".$id_tienda."'";
         $categoria   = new Model();
         $dato       = $categoria->insertar('categorias',$data);
+        
+        // Creando copia de los datos para realizar la funcion de desacer cambios
+        $condition = 'nombre="'.$nombre.'"';
+        $backup = $categoria->mostrar('categorias',$condition);
+        $backup = $backup[0][0];
+        $data_backup = '[["m","delCategoria"],["id","'.$backup['id'].'"]]';
+
+
         if($dato){
             echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La categoria se agrego', 'success')}); </script>";
         }else{
             echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
-        modeloController::categoria();
+        modeloController::categoria($data_backup);
         
     }
 
@@ -302,12 +334,20 @@
         $data = "'".$nombre."','".$apellido_m."','".$apellido_p."','".$user_name."','".$pass."','".$email."','".$fecha_actual."','".$_SESSION['id_tienda']."'";
         $categoria   = new Model();
         $dato       = $categoria->insertar('users',$data);
+        
+        
+        // Creando copia de los datos para realizar la funcion de desacer cambios
+        $condition = 'user_name="'.$user_name.'"';
+        $backup = $categoria->mostrar('users',$condition);
+        $backup = $backup[0][0];
+        $data_backup = '[["m","delUsuario"],["id","'.$backup['id'].'"]]';
+        // Se redirecciona a la vista de usuarios
+        require_once("views/usuarios.php");
         if($dato){
             echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'El usuario se ha registrado con exito', 'success')}); </script>";
         }else{
             echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
-        modeloController::usuarios();
         
     }
     //Redireccionar a la vista de agregar usuario
@@ -334,17 +374,25 @@
         $user_name = $_POST['user_name'];
         $email = $_POST['email'];
         $fecha_actual = date('Y-m-d H:i:s');
-
+        
         $data = "nombre='".$nombre."',apellido_p='".$apellido_p."',apellido_m='".$apellido_m."',user_name='".$user_name."',user_email='".$email."',date_added='".$fecha_actual."'";
         $condition = 'id='.$id;
         $categori   = new Model();
+        // Creando copia de los datos para realizar la funcion de desacer cambios
+        
+        $backup = $categori->mostrar('users',$condition);
+        
+        $backup = $backup[0][0];
+        
+        $data_backup = '[["m","updateUsuario"],["id","'.$backup['id'].'"],["name","'.$backup['nombre'].'"],["apellido_p","'.$backup['apellido_p'].'"],["apellido_m","'.$backup['apellido_m'].'"],["user_name","'.$backup['user_name'].'"],["email","'.$backup['user_email'].'"]]';
+        
         $dato       = $categori->actualizar('users',$data,$condition);
         if($dato){
             echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La informacion se actualizo', 'success')}); </script>";
         }else{
             echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
-        modeloController::usuarios();
+        require_once("views/usuarios.php");
         
     }
 
@@ -353,16 +401,43 @@
         $id = $_POST['id'];
         $condition = 'id='.$id;
         $categori   = new Model();
+        // Creando copia de los datos para realizar la funcion de desacer cambios
+        $backup = $categori->mostrar('users',$condition);
+        $backup = $backup[0][0];
+        $data_backup = '[["m","recUsuario"],["name","'.$backup['nombre'].'"],["apellido_p","'.$backup['apellido_p'].'"],["apellido_m","'.$backup['apellido_m'].'"],["user_name","'.$backup['user_name'].'"],["pass","'.$backup['user_password'].'"],["email","'.$backup['user_email'].'"]]';
+
         $dato       = $categori->eliminar('users',$condition);
+        //Se redirecciona a la vista de usuarios
+        require_once("views/usuarios.php");
         if($dato){
             echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'El usuario se elimino', 'success')}); </script>";
         }else{
             echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
-        modeloController::usuarios();
+        
         
     }
     
+    // RECUPERAR USUARIO ELIMINADO  
+    static function recUsuario(){
+        $_POST['m'] = null;
+        $nombre = $_POST['name'];
+        $apellido_p = $_POST['apellido_p'];
+        $apellido_m = $_POST['apellido_m'];
+        $user_name = $_POST['user_name']; 
+        $pass = $_POST['pass'];
+        $email = $_POST['email'];
+        $fecha_actual = date('Y-m-d H:i:s');
+        $data = "'".$nombre."','".$apellido_m."','".$apellido_p."','".$user_name."','".$pass."','".$email."','".$fecha_actual."','".$_SESSION['id_tienda']."'";
+        $categoria   = new Model();
+        $dato       = $categoria->insertar('users',$data);
+        if($dato){
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'El usuario se ha registrado con exito', 'success')}); </script>";
+        }else{
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
+        }
+        require_once("views/usuarios.php");        
+    }
 
     // FUNCIONES PARA LA SECCIÓN DE PRODUCTOS
     static function addProducto(){
@@ -373,9 +448,14 @@
         $stock = $_POST['stock'];
         $id_categoria = $_POST['categoria'];
         $id_tienda = $_POST['id_tienda'];
+        $condicion='codigo='.$codigo;
         // Realiza la lógica de guardar el producto en la base de datos
         $model = new Model();
         $resultado = $model->addProducto($codigo,$nombre,$precio,$stock,$id_categoria,$id_tienda);
+        $backup = $model->mostrar('productos',$condicion);
+        $backup = $backup[0][0];
+        $data_backup = '[["m","delProducto"],["id","'.$backup['id'].'"]]';
+        
         //Se redirecciona a la vista de inventario
         require_once("views/inventario.php");
 
@@ -416,7 +496,14 @@
         $id_producto=$_POST['id_producto'];
         $id_categoria = $_POST['categoria'];
         $id_tienda = $_POST['id_tienda'];
+
+        $condicion='id='.$id_producto;
         $modelo = new Model();
+        $backup = $modelo->mostrar('productos',$condicion);
+        $backup = $backup[0][0];
+        $data_backup = '[["m","updateProducto"],["id_producto","'.$backup['id'].'"],["codigo","'.$backup['codigo'].'"],["nombre","'.$backup['nombre'].'"],["precio","'.$backup['precio'].'"],["stock","'.$backup['stock'].'"],["categoria","'.$backup['id_categoria'].'"],["id_tienda","'.$backup['id_tienda'].'"]]';
+
+
         $resultado = $modelo->updateProducto($codigo,$nombre,$precio,$stock,$id_categoria,$id_tienda,$id_producto);
         //Se redirecciona a la vista de inventario
         require_once("views/inventario.php");
@@ -436,6 +523,13 @@
         $id_producto=$_REQUEST['id'];
         $condicion='id='.$id_producto;
         $modelo = new Model();
+        // Creando copia de los datos para realizar la funcion de desacer cambios
+        $backup = $modelo->mostrar('productos',$condicion);
+        $backup = $backup[0][0];
+        $data_backup = '[["m","addProducto"],["id","'.$backup['id'].'"],["codigo","'.$backup['codigo'].'"],["nombre","'.$backup['nombre'].'"],["precio","'.$backup['precio'].'"],["stock","'.$backup['stock'].'"],["categoria","'.$backup['id_categoria'].'"],["id_tienda","'.$backup['id_tienda'].'"]]';
+        //$data_backup = "[['m','addProducto'],['id','{$backup['id']}'],['codigo','{$backup['codigo']}'],['nombre','{$backup['nombre']}'],['date_added','{$backup['date_added']}'],['precio','{$backup['precio']}'],['stock','{$backup['stock']}'],['id_categoria','{$backup['id_categoria']}'],['id_tienda','{$backup['id_tienda']}']]";
+        
+        //var_dump($data_backup);
         $resultado = $modelo->eliminar('productos',$condicion);
         //Se redirecciona a la vista de inventario
         require_once("views/inventario.php");
@@ -476,8 +570,8 @@
         //Creación del modelo
         $modelo = new Model();
         $info_producto= $modelo->stock($id_producto);
-        #var_dump($info_producto[0][0]);
-        #die();
+        //var_dump($info_producto[0][0]);
+        //die();
 
         //Cuando el usuario selecciona agregar stock
         if($opcion=='agregar'){
