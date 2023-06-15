@@ -137,5 +137,6 @@
 <script src="assets/static/js/pages/dashboard.js"></script>
 <script src="assets/extensions/sweetalert2/sweetalert2.min.js"></script>
 <script src="assets/static/js/pages/sweetalert2.js"></script>
+<script src="js/validacionForm.js"></script>
 
 <?php } ?>
