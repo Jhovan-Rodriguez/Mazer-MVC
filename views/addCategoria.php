@@ -39,7 +39,7 @@
                         <div class="form-group mandatory">
                           <label for="first-name-column" class="form-label">Nombre</label>
                           <input type="text" id="first-name-column" class="form-control"
-                            placeholder="Nombre de la categoria" name="name" required />
+                            placeholder="Nombre de la categoria | Max 25 carácteres" max="25" name="name" required />
                         </div>
                       </div>
                     </div>
@@ -48,7 +48,7 @@
                         <div class="form-group mandatory">
                           <label for="first-name-column" class="form-label">Descripcion</label>
                           <input type="text" id="first-name-column" class="form-control"
-                            placeholder="Descripcion de la categoria" name="descripcion" required />
+                            placeholder="Descripcion de la categoria | Maximo 30 carácteres" max="30" name="descripcion" required />
                         </div>
                       </div>
                     </div>

@@ -41,14 +41,14 @@
                                                 <div class="form-group mandatory">
                                                     <label for="first-name-column" class="form-label">Código</label>
                                                     <input type="number" id="first-name-column" class="form-control"
-                                                        placeholder="Código de producto" name="codigo" required />
+                                                        placeholder="### Código de producto" max="10" name="codigo" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group mandatory">
                                                     <label for="first-name-column" class="form-label">Nombre</label>
                                                     <input type="text" id="first-name-column" class="form-control"
-                                                        placeholder="Nombre del producto" name="nombre" required />
+                                                        placeholder="Nombre del producto" max="30" name="nombre" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -57,7 +57,7 @@
                                                 <div class="form-group mandatory">
                                                     <label for="first-name-column" class="form-label">Precio</label>
                                                     <input type="number" id="first-name-column" class="form-control"
-                                                        placeholder="Ingrese precio de producto" name="precio"
+                                                        placeholder="$ 0.00" max="30" name="precio"
                                                         required />
                                                 </div>
                                             </div>
