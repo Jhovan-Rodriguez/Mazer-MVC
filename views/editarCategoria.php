@@ -89,5 +89,6 @@
 <!-- Need: Apexcharts -->
 <script src="assets/extensions/apexcharts/apexcharts.min.js"></script>
 <script src="assets/static/js/pages/dashboard.js"></script>
+<script src="js/validacionForm.js"></script>
 
 <?php } ?>
