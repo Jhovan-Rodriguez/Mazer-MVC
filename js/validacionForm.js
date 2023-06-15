@@ -35,3 +35,10 @@ Array.from(forms).forEach(form => {
     form.classList.add('was-validated')
   }, false)
 })
+window.addEventListener("beforeunload", (event) => {
+  if(true){
+    event.preventDefault();
+    event.returnValue = "";
+    return "";
+  }
+});
