@@ -124,9 +124,9 @@
         modeloController::tiendas($data_backup);
         //Colocación de alertas
         if ($resultado == 'success') {
-            echo "<script>Swal.fire('Registro exitoso!', 'La tienda se ha registrado con exito', 'success')</script>";
+            echo "<script>Swal.fire('Registro exitoso', 'La tienda se ha registrado con exito', 'success')</script>";
         } else {
-            echo "<script>Swal.fire('Registro fallido!', 'La tienda se no ha registrado', 'error')</script>";
+            echo "<script>Swal.fire('Registro fallido', 'La tienda se no ha registrado', 'error')</script>";
 
         }
 
@@ -152,9 +152,9 @@
         modeloController::tiendas($data_backup);
         //Colocación de alertas
         if ($resultado == 'success') {
-            echo "<script>Swal.fire('Actualización exitosa!', 'La tienda se ha actualizado con exito', 'success')</script>";
+            echo "<script>Swal.fire('Actualización exitosa', 'La tienda se ha actualizado con exito', 'success')</script>";
         } else {
-            echo "<script>Swal.fire('Actualización fallida!', 'La tienda se no ha actualizado', 'error')</script>";
+            echo "<script>Swal.fire('Actualización fallida', 'La tienda se no ha actualizado', 'error')</script>";
 
         }
     }
@@ -183,7 +183,7 @@
         //Se valida que la tienda no tenga dependencias en ellas
         if(!empty($categorias) or !empty($usuarios)){
             modeloController::tiendas();
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'La tienda tiene dependencias en la aplicción, favor de eliminarlas', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error', 'La tienda tiene dependencias en la aplicción, favor de eliminarlas', 'error')}); </script>";
         }else{
             //Si no tiene dependencias, se puede eliminar
             // Creando copia de los datos para realizar la funcion de desacer cambios
@@ -193,9 +193,9 @@
             $data_backup = '[["m","addTienda"],["nombre","'.$backup['nombre'].'"],["radio-stacked","'.$backup['activa'].'"]]';
             $dato=$modelo->eliminar('tienda',$condicion);
             if($dato){
-                echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La tienda se eliminó correctamente', 'success')}); </script>";
+                echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa', 'La tienda se eliminó correctamente', 'success')}); </script>";
             }else{
-                echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'La tienda no se ha eliminado', 'error')}); </script>";
+                echo "<script> window.addEventListener('load', function() { Swal.fire('Error', 'La tienda no se ha eliminado', 'error')}); </script>";
             }
             modeloController::tiendas($data_backup);
         }
@@ -239,9 +239,9 @@
         $data_backup = '[["m","updateCategoria"],["id","'.$backup['id'].'"],["name","'.$backup['nombre'].'"],["descripcion","'.$backup['descripcion'].'"]]';
         $dato       = $categori->actualizar('categorias',$data,$condition);
         if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La informacion se actualizo', 'success')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa', 'La informacion se actualizo', 'success')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
         modeloController::categoria($data_backup);
         
@@ -267,9 +267,9 @@
             //Funcion para eliminar categorias
             $dato       = $categori->eliminar('categorias',$condition);
             if($dato){
-                echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La categoria se elimino', 'success')}); </script>";
+                echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa', 'La categoria se elimino', 'success')}); </script>";
             }else{
-                echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
+                echo "<script> window.addEventListener('load', function() { Swal.fire('Error', 'No se pudo realizar la Operación', 'error')}); </script>";
             }
             //require_once("views/categorias.php");
             modeloController::categoria($data_backup);
@@ -295,9 +295,9 @@
 
 
         if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'La categoria se agrego', 'success')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa', 'La categoria se agrego', 'success')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
         modeloController::categoria($data_backup);
         
@@ -323,7 +323,7 @@
         $pass = $_POST['pass'];
         if (($pass != $pass_conf)){
             //Colocación de alertas
-            echo "<script>  window.addEventListener('load', function() { Swal.fire('Error!', 'La contraseña no coincide', 'error')}); </script>"; 
+            echo "<script>  window.addEventListener('load', function() { Swal.fire('Error', 'La contraseña no coincide', 'error')}); </script>"; 
             echo "<script>  document.body.innerHTML = ''; </script>";
             modeloController::usuarios();
             return "Error";
@@ -344,9 +344,9 @@
         // Se redirecciona a la vista de usuarios
         require_once("views/usuarios.php");
         if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'El usuario se ha registrado con exito', 'success')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa', 'El usuario se ha registrado con exito', 'success')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
         
     }
@@ -410,9 +410,9 @@
         //Se redirecciona a la vista de usuarios
         require_once("views/usuarios.php");
         if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'El usuario se elimino', 'success')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa', 'El usuario se elimino', 'success')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
         
         
@@ -432,9 +432,9 @@
         $categoria   = new Model();
         $dato       = $categoria->insertar('users',$data);
         if($dato){
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa!', 'El usuario se ha registrado con exito', 'success')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Operación exitosa', 'El usuario se ha registrado con exito', 'success')}); </script>";
         }else{
-            echo "<script> window.addEventListener('load', function() { Swal.fire('Error!', 'No se pudo realizar la Operación', 'error')}); </script>";
+            echo "<script> window.addEventListener('load', function() { Swal.fire('Error', 'No se pudo realizar la Operación', 'error')}); </script>";
         }
         require_once("views/usuarios.php");        
     }
@@ -461,9 +461,9 @@
 
         //Colocación de alertas
         if ($resultado == 'success') {
-            echo "<script>Swal.fire('Registro exitoso!', 'El producto se ha registrado con exito', 'success')</script>";
+            echo "<script>Swal.fire('Registro exitoso', 'El producto se ha registrado con exito', 'success')</script>";
         } else {
-            echo "<script>Swal.fire('Registro fallido!', 'El producto se no ha registrado', 'error')</script>";
+            echo "<script>Swal.fire('Registro fallido', 'El producto se no ha registrado', 'error')</script>";
 
         }
 
@@ -510,9 +510,9 @@
 
         //Colocación de alertas
         if ($resultado == 'success') {
-            echo "<script>Swal.fire('Actualización exitoso!', 'El producto se ha actualizado con exito', 'success')</script>";
+            echo "<script>Swal.fire('Actualización exitoso', 'El producto se ha actualizado con exito', 'success')</script>";
         } else {
-            echo "<script>Swal.fire('Actualización fallido!', 'El producto se no ha actualizado', 'error')</script>";
+            echo "<script>Swal.fire('Actualización fallido', 'El producto se no ha actualizado', 'error')</script>";
 
         }
     }
@@ -536,9 +536,9 @@
 
         //Colocación de alertas
         if ($resultado) {
-            echo "<script>Swal.fire('Eliminación exitosa!', 'El producto se ha eliminado con exito', 'success')</script>";
+            echo "<script>Swal.fire('Eliminación exitosa', 'El producto se ha eliminado con exito', 'success')</script>";
         } else {
-            echo "<script>Swal.fire('Eliminación fallida!', 'El producto se no ha actualizado', 'error')</script>";
+            echo "<script>Swal.fire('Eliminación fallida', 'El producto se no ha actualizado', 'error')</script>";
 
         }
     }
@@ -579,9 +579,9 @@
             $resultado = $modelo->updateStock($updateStock,$id_producto);
             require_once("views/inventario.php");
             if($resultado=='success'){
-                echo "<script>Swal.fire('Actualización exitosa!', 'El stock se ha agregado con exito', 'success')</script>";
+                echo "<script>Swal.fire('Actualización exitosa', 'El stock se ha agregado con exito', 'success')</script>";
             }else{
-                echo "<script>Swal.fire('Actualización fallida!', 'El stock se no ha agregado', 'error')</script>";
+                echo "<script>Swal.fire('Actualización fallida', 'El stock se no ha agregado', 'error')</script>";
             }
         }
         //Cuando el usuario selecciona eliminar stock
@@ -589,7 +589,7 @@
             //Se verifica que el stock no puede ser negativo
             if($stock>$info_producto[0][0]){
                 require_once("views/inventario.php");
-                echo "<script>Swal.fire('Error!', 'No puede haber stock negativo', 'error')</script>";
+                echo "<script>Swal.fire('Error', 'No puede haber stock negativo', 'error')</script>";
             }else{
                 //Se resta el stock
                 $updateStock= $info_producto[0][0]-$stock;
@@ -597,9 +597,9 @@
                 require_once("views/inventario.php");
                 //Verifica si se realizó la operacion correctamente
                 if($resultado=='success'){
-                    echo "<script>Swal.fire('Actualización exitosa!', 'El stock se ha eliminado con exito', 'success')</script>";
+                    echo "<script>Swal.fire('Actualización exitosa', 'El stock se ha eliminado con exito', 'success')</script>";
                 }else{
-                    echo "<script>Swal.fire('Actualización fallida!', 'El stock se no ha eliminado', 'error')</script>";
+                    echo "<script>Swal.fire('Actualización fallida', 'El stock se no ha eliminado', 'error')</script>";
                 }
             }
 
