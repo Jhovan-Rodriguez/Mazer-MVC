@@ -449,6 +449,13 @@
         $id_categoria = $_POST['categoria'];
         $id_tienda = $_POST['id_tienda'];
         $condicion='codigo='.$codigo;
+        // Validar numero negativos
+        if($codigo < 0 &&  $precio < 0 && $stock < 0){
+            //Se redirecciona a la vista de inventario
+            require_once("views/inventario.php");
+            echo "<script>Swal.fire('Registro fallido', 'No se aceptan valores negativos', 'error')</script>";
+        }
+        
         // Realiza la lógica de guardar el producto en la base de datos
         $model = new Model();
         $resultado = $model->addProducto($codigo,$nombre,$precio,$stock,$id_categoria,$id_tienda);
